@@ -12,7 +12,7 @@
 # language governing permissions and limitations under the License.
 from __future__ import absolute_import
 
-import os
+import os,sys
 import subprocess
 from subprocess import CalledProcessError
 
