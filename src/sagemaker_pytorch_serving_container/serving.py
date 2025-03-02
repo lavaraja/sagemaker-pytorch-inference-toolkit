@@ -35,9 +35,9 @@ def configure_logging():
 
     # Get the directory of the current script
     current_script_path = os.path.abspath(__file__)
-    current_dir = os.path.dirname(current_script_path)
+    
     # Construct the path to log4j2.xml relative to the script location
-    log4j2_path = os.path.join(os.path.dirname(current_dir), 'etc', 'log4j2.xml')
+    log4j2_path = os.path.join(os.path.dirname(current_script_path), 'etc', 'log4j2.xml')
 
     print(f"Current script path: {current_script_path}")
     print(f"log4j2.xml path: {log4j2_path}")
