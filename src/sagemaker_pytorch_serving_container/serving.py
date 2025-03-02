@@ -34,15 +34,23 @@ def configure_logging():
     }
 
     ts_loglevel = os.environ.get('TS_LOGLEVEL')
+    log4j2_path = 'etc/log4j2.xml'
+
+    print(f"Current working directory: {os.getcwd()}")
+    print(f"log4j2.xml path: {os.path.abspath(log4j2_path)}")
+
+    if not os.path.exists(log4j2_path):
+        print(f"Error: {log4j2_path} does not exist", file=sys.stderr)
+        return
 
     if ts_loglevel is not None:
         if ts_loglevel in log_levels:
             try:
                 log_level = log_levels[ts_loglevel]
-                subprocess.run(['sed', '-i', f's/info/{log_level}/g', 'etc/log4j2.xml'], check=True)
+                subprocess.run(['sed', '-i', f's/info/{log_level}/g', log4j2_path], check=True)
                 print(f"Logging level set to {log_level}")
-            except subprocess.CalledProcessError:
-                print("Error configuring the logging", file=sys.stderr)
+            except subprocess.CalledProcessError as e:
+                print(f"Error configuring the logging: {e}", file=sys.stderr)
         else:
             print(f"Invalid TS_LOGLEVEL value: {ts_loglevel}. No changes made to logging configuration.", file=sys.stderr)
     else:
