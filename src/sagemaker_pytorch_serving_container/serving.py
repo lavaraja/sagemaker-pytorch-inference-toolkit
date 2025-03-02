@@ -33,15 +33,20 @@ def configure_logging():
         '60': 'trace'
     }
 
-    ts_loglevel = os.environ.get('TS_LOGLEVEL')
-    log4j2_path = 'etc/log4j2.xml'
+    # Get the directory of the current script
+    current_script_path = os.path.abspath(__file__)
+    current_dir = os.path.dirname(current_script_path)
+    # Construct the path to log4j2.xml relative to the script location
+    log4j2_path = os.path.join(os.path.dirname(current_dir), 'etc', 'log4j2.xml')
 
-    print(f"Current working directory: {os.getcwd()}")
-    print(f"log4j2.xml path: {os.path.abspath(log4j2_path)}")
+    print(f"Current script path: {current_script_path}")
+    print(f"log4j2.xml path: {log4j2_path}")
 
     if not os.path.exists(log4j2_path):
         print(f"Error: {log4j2_path} does not exist", file=sys.stderr)
         return
+
+    ts_loglevel = os.environ.get('TS_LOGLEVEL')
 
     if ts_loglevel is not None:
         if ts_loglevel in log_levels:
