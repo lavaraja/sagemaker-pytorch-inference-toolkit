@@ -22,6 +22,7 @@ from sagemaker_pytorch_serving_container import handler_service
 
 HANDLER_SERVICE = handler_service.__file__
 
+## added logging function to configure log4j2 loglevel.
 def configure_logging():
     log_levels = {
         '0': 'off',
