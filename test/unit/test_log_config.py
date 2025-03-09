@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, MagicMock
-import os , subprocess
+import os, subprocess
 import sys
 import io
 
@@ -32,7 +32,7 @@ class TestLogConfig(unittest.TestCase):
         
         with patch('sys.stderr', new=io.StringIO()) as fake_err:
             configure_logging()
-            self.assertIn("Invalid TS_LOGLEVEL value: 70", fake_err.getvalue())
+            self.assertIn("Invalid TS_LOG_LEVEL value: 70", fake_err.getvalue())
 
     @patch('os.path.exists')
     @patch('os.environ.get')
@@ -42,7 +42,7 @@ class TestLogConfig(unittest.TestCase):
         
         with patch('sys.stdout', new=io.StringIO()) as fake_out:
             configure_logging()
-            self.assertIn("TS_LOGLEVEL not set", fake_out.getvalue())
+            self.assertIn("TS_LOG_LEVEL not set", fake_out.getvalue())
 
     @patch('os.path.exists')
     @patch('os.environ.get')

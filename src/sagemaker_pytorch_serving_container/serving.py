@@ -47,20 +47,20 @@ def configure_logging():
         print(f"Error: {log4j2_path} does not exist", file=sys.stderr)
         return
 
-    ts_loglevel = os.environ.get('TS_LOGLEVEL')
+    ts_log_level = os.environ.get('TS_LOG_LEVEL')
 
-    if ts_loglevel is not None:
-        if ts_loglevel in log_levels:
+    if ts_log_level is not None:
+        if ts_log_level in log_levels:
             try:
-                log_level = log_levels[ts_loglevel]
+                log_level = log_levels[ts_log_level]
                 subprocess.run(['sed', '-i', f's/info/{log_level}/g', log4j2_path], check=True)
                 print(f"Logging level set to {log_level}")
             except subprocess.CalledProcessError as e:
                 print(f"Error configuring the logging: {e}", file=sys.stderr)
         else:
-            print(f"Invalid TS_LOGLEVEL value: {ts_loglevel}. No changes made to logging configuration.", file=sys.stderr)
+            print(f"Invalid TS_LOG_LEVEL value: {ts_log_level}. No changes made to logging configuration.", file=sys.stderr)
     else:
-        print("TS_LOGLEVEL not set. Using default logging configuration.")
+        print("TS_LOG_LEVEL not set. Using default logging configuration.")
 
 def _retry_if_error(exception):
     return isinstance(exception, CalledProcessError)
